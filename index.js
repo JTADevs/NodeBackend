@@ -3,15 +3,24 @@ const connection = require('./db');
 
 //create a server object:
 http.createServer(function (req, res) {
-  const sqlQuery = 'use shooterapp; SELECT * FROM users;';
-  connection.query(sqlQuery, (err, results) => {
+  connection.connect(function (err) {
     if (err) {
-      console.error('Błąd zapytania:', err);
-      res.write('Błąd zapytania:');
+        console.log("Error in the connection")
+        console.log(err)
+    } else {
+      console.log(`Database Connected`)
+      connection.query(`SHOW DATABASES`,
+        function (err, result) {
+          if (err) {
+            console.log(`Error executing the query - ${err}`)
+            res.write('jd1');
+          } else {
+            console.log("Result: ", result)
+            res.write('jd2');
+          }
+        })
     }
-    console.log('Wyniki zapytania:', results);
-    res.write('Wyniki zapytania:');
-  });
+  })
   res.write('jd');
   res.end(); // Zakończ odpowiedź w przypadku błędu
 }).listen(80); //the server object listens on port 80
