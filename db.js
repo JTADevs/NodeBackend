@@ -1,20 +1,20 @@
-const mysql = require('mysql2');
+const mysql = require('mysql');
 
-// Tworzenie połączenia z bazą danych
+// Połączenie z bazą danych
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: '',
-  database: 'shooterapp'
+  password: '', // Dostosuj hasło do Twojej konfiguracji
+  database: 'shooterapp' // Nazwa Twojej bazy danych
 });
 
 // Sprawdzenie połączenia
-connection.connect(function(err) {
-  if (err) {
-    console.error('Błąd połączenia:', err.stack);
-    return;
-  }
-  console.log('Połączenie z bazą danych zostało ustanowione.');
+connection.connect((err) => {
+    if (err) {
+        console.error('Błąd połączenia z bazą danych:', err);
+        return;
+    }
+    console.log('Połączono z bazą danych MySQL');
 });
 
 module.exports = connection;

@@ -3,14 +3,14 @@ const connection = require('./db');
 
 //create a server object:
 http.createServer(function (req, res) {
-  connection.query('SELECT * FROM users', function(err, results, fields) {
+  const sqlQuery = 'SELECT * FROM users';
+  connection.query(sqlQuery, (err, results) => {
     if (err) {
-      res.write('Błąd zapytania:', err);
-      res.end(); // Zakończ odpowiedź w przypadku błędu
-      return;
+      console.error('Błąd zapytania:', err);
+      res.write('Błąd zapytania:');
     }
-    res.write('Wyniki zapytania:', results);
-    res.end(); // Zakończ odpowiedź po otrzymaniu wyników zapytania
+    console.log('Wyniki zapytania:', results);
+    res.write('Wyniki zapytania:');
   });
   res.write('jd');
   res.end(); // Zakończ odpowiedź w przypadku błędu
