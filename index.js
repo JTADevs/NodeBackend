@@ -3,7 +3,7 @@ const connection = require('./db');
 
 //create a server object:
 http.createServer(function (req, res) {
-  const sqlQuery = 'SELECT * FROM users';
+  const sqlQuery = 'use shooterapp; SELECT * FROM users;';
   connection.query(sqlQuery, (err, results) => {
     if (err) {
       console.error('Błąd zapytania:', err);
