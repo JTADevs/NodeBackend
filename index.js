@@ -5,12 +5,11 @@ const connection = require('./db');
 http.createServer(function (req, res) {
   connection.query('SELECT * FROM users', function(err, results, fields) {
     if (err) {
-      res.write('Błąd zapytania:');//, err);
+      res.write('Błąd zapytania:', err);
+      res.end(); // Zakończ odpowiedź w przypadku błędu
       return;
     }
-    res.write('Wyniki zapytania:');//, results);
+    res.write('Wyniki zapytania:', results);
+    res.end(); // Zakończ odpowiedź po otrzymaniu wyników zapytania
   });
-  res.write('Mamy tooo!'); //write a response to the client
-  res.write('Mamy tooo!'); //write a response to the client
-  res.end(); //end the response
 }).listen(80); //the server object listens on port 80
