@@ -12,4 +12,6 @@ http.createServer(function (req, res) {
     res.write('Wyniki zapytania:', results);
     res.end(); // Zakończ odpowiedź po otrzymaniu wyników zapytania
   });
+  res.write('jd');
+  res.end(); // Zakończ odpowiedź w przypadku błędu
 }).listen(80); //the server object listens on port 80
