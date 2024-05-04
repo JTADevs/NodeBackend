@@ -5,24 +5,24 @@ var mysql = require('mysql');
 var conn = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "",
+  password: "zaq1@WSX",
   database: "shooterapp"
-});
-
-// Nawiązywanie połączenia z bazą danych
-conn.connect(function(err) {
-  if (err) console.log(err);
-  console.log("Connected to MySQL database!");
 });
 
 // Tworzenie serwera HTTP
 http.createServer(function (req, res) {
-  conn.query("SELECT * FROM users", function (err, result, fields) {
-    if (err) throw err;
-    console.log(result); // Wynik zapytania
-    res.writeHead(200, {'Content-Type': 'text/plain'});
-    res.write('Result from database: ' + JSON.stringify(result)); // Zapisanie wyniku do odpowiedzi HTTP
-    res.end();
+  conn.connect(function(err) {
+    if (err) console.log(err);
+    else{
+      console.log("Connected to MySQL database!");
+      conn.query("SELECT * FROM users", function (err, result, fields) {
+        if (err) throw err;
+        console.log(result); // Wynik zapytania
+        res.writeHead(200, {'Content-Type': 'text/plain'});
+        res.write('Result from database: ' + JSON.stringify(result)); // Zapisanie wyniku do odpowiedzi HTTP
+        res.end();
+      });
+    };
   });
 }).listen(8080);
 
