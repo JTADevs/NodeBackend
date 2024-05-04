@@ -4,7 +4,7 @@ const connection = mysql.createConnection({
     port: 3306,
     database: 'shooterapp',
     user: 'root',
-    password: 'root',
+    password: '',
 });
 
 connection.connect(function (err) {
