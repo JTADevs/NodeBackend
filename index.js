@@ -5,20 +5,28 @@ const conn = mysql.createConnection({
   port: 3306,
   database: 'test',
   user: 'root',
-  password: 'root',
+  password: '',
 });
 
-conn.connect(function (err) {
-  if(err){
-    console.log("error occurred while connecting");
-  }
-  else{
-    console.log("connection created with Mysql successfully");
-  }
-});
+// conn.connect(function (err) {
+//   if(err){
+//     console.log("error occurred while connecting");
+//   }
+//   else{
+//     console.log("connection created with Mysql successfully");
+//   }
+// });
 
 //create a server object:
 http.createServer(function (req, res) {
+  conn.connect(function (err) {
+    if(err){
+      console.log("error occurred while connecting");
+    }
+    else{
+      console.log("connection created with Mysql successfully");
+    }
+  });
   console.log("connection created with Mysql successfully");
   // console.log(`Database Connected`)
   // connection.query(`SHOW DATABASES`,
