@@ -1,45 +1,29 @@
 var http = require('http');
-const mysql = require('mysql');
-const conn = mysql.createConnection({
-  host: 'localhost',
-  port: 3306,
-  database: 'shooterapp',
-  user: 'root',
-  password: '',
+var mysql = require('mysql');
+
+// Tworzenie połączenia z bazą danych
+var conn = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "shooterapp"
 });
 
-// conn.connect(function (err) {
-//   if(err){
-//     console.log("error occurred while connecting");
-//   }
-//   else{
-//     console.log("connection created with Mysql successfully");
-//   }
-// });
+// Nawiązywanie połączenia z bazą danych
+conn.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected to MySQL database!");
+});
 
-//create a server object:
+// Tworzenie serwera HTTP
 http.createServer(function (req, res) {
-  conn.connect(function (err) {
-    if(err){
-      console.log("error occurred while connecting");
-    }
-    else{
-      console.log("connection created with Mysql successfully");
-    }
+  conn.query("SELECT * FROM users", function (err, result, fields) {
+    if (err) throw err;
+    console.log(result); // Wynik zapytania
+    res.writeHead(200, {'Content-Type': 'text/plain'});
+    res.write('Result from database: ' + JSON.stringify(result)); // Zapisanie wyniku do odpowiedzi HTTP
+    res.end();
   });
-  console.log("connection created with Mysql successfully");
-  // console.log(`Database Connected`)
-  // connection.query(`SHOW DATABASES`,
-  //   function (err, result) {
-  //     if (err) {
-  //       console.log(`Error executing the query`)
-  //       //console.log(`Error executing the query - ${err}`)
-  //       res.write('jd1');
-  //     } else {
-  //       console.log("Result: ", result)
-  //       res.write('jd2');
-  //     }
-  //   })
-  res.write('jd3');
-  res.end(); // Zakończ odpowiedź w przypadku błędu
-}).listen(80); //the server object listens on port 80
+}).listen(8080);
+
+console.log('Server running at http://localhost:8080/');
