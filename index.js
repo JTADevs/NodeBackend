@@ -31,6 +31,6 @@ http.createServer(function (req, res) {
   //       res.write('jd2');
   //     }
   //   })
-  // res.write('jd3');
+  res.write('jd3');
   res.end(); // Zakończ odpowiedź w przypadku błędu
 }).listen(80); //the server object listens on port 80
