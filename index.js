@@ -3,7 +3,7 @@ var mysql = require('mysql');
 
 // Tworzenie połączenia z bazą danych
 var conn = mysql.createConnection({
-  host: "3.65.218.138",
+  host: "localhost",
   port: 3306,
   user: "root",
   password: "zaq1@WSX",
