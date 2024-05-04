@@ -18,13 +18,13 @@ conn.connect(function(err) {
 
 // Tworzenie serwera HTTP
 http.createServer(function (req, res) {
-  // conn.query("SELECT * FROM users", function (err, result, fields) {
-  //   if (err) throw err;
-  //   console.log(result); // Wynik zapytania
-  //   res.writeHead(200, {'Content-Type': 'text/plain'});
-  //   res.write('Result from database: ' + JSON.stringify(result)); // Zapisanie wyniku do odpowiedzi HTTP
-  //   res.end();
-  // });
+  conn.query("SELECT * FROM users", function (err, result, fields) {
+    if (err) throw err;
+    console.log(result); // Wynik zapytania
+    res.writeHead(200, {'Content-Type': 'text/plain'});
+    res.write('Result from database: ' + JSON.stringify(result)); // Zapisanie wyniku do odpowiedzi HTTP
+    res.end();
+  });
   res.writeHead(200, {'Content-Type': 'text/plain'});
   res.write('Result');
   res.end();
