@@ -1,6 +1,6 @@
 var http = require('http');
 const mysql = require('mysql');
-const connection = mysql.createConnection({
+const conn = mysql.createConnection({
   host: 'localhost',
   port: 3306,
   database: 'test',
@@ -8,7 +8,7 @@ const connection = mysql.createConnection({
   password: 'root',
 });
 
-connection.connect(function (err) {
+conn.connect(function (err) {
   if(err){
     console.log("error occurred while connecting");
   }
