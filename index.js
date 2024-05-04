@@ -10,7 +10,7 @@ const conn = mysql.createConnection({
 
 conn.connect(function (err) {
   if(err){
-    console.log("errosssssss");
+    console.log("error occurred while connecting");
   }
   else{
     console.log("connection created with Mysql successfully");
@@ -19,6 +19,7 @@ conn.connect(function (err) {
 
 //create a server object:
 http.createServer(function (req, res) {
+  console.log("connection created with Mysql successfully");
   // console.log(`Database Connected`)
   // connection.query(`SHOW DATABASES`,
   //   function (err, result) {
