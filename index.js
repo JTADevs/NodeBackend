@@ -11,7 +11,7 @@ var conn = mysql.createConnection({
 
 // Nawiązywanie połączenia z bazą danych
 conn.connect(function(err) {
-  if (err) throw err;
+  if (err) console.log(err);
   console.log("Connected to MySQL database!");
 });
 
