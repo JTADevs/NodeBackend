@@ -128,6 +128,7 @@ app.get('/get', (req, res) => {
     console.log(result);
     res.status(200).json(result);
   });
+  return;
 });
 
 // Obsługa żądań POST dla /register
@@ -144,6 +145,7 @@ app.post('/register', (req, res) => {
     console.log('New record added successfully');
     res.status(200).send('New record added successfully');
   });
+  return;
 });
 
 // Obsługa innych typów żądań
