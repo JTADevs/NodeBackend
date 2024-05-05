@@ -1,5 +1,6 @@
-var http = require('http');
-var mysql = require('mysql');
+const http = require('http');
+const url = require('url');
+const mysql = require('mysql');
 
 // Tworzenie połączenia z bazą danych
 var conn = mysql.createConnection({
@@ -18,11 +19,38 @@ conn.connect(function(err) {
 
 // Tworzenie serwera HTTP
 http.createServer(function (req, res) {
-  conn.query("SELECT * FROM users", function (err, result, fields) {
-    if (err) throw err;
-    console.log(result); // Wynik zapytania
-    res.writeHead(200, {'Content-Type': 'text/plain'});
-    res.write('Result from database: ' + JSON.stringify(result)); // Zapisanie wyniku do odpowiedzi HTTP
-    res.end();
+  if (req.method === 'POST') {
+    conn.query("SELECT * FROM account", function (err, result, fields) {
+      if (err) {
+        console.error(err);
+        res.writeHead(500, {'Content-Type': 'text/plain'});
+        res.end('Internal Server Error');
+        return;
+      }
+      //console.log(result); // Wynik zapytania
+
+      res.writeHead(200, {'Content-Type': 'application/json'});
+      res.end(JSON.stringify(result));
+
+      // res.writeHead(200, {'Content-Type': 'text/plain'});
+      // res.write('Result from database: ' + JSON.stringify(result)); // Zapisanie wyniku do odpowiedzi HTTP
+      // res.end();
+    });
+  } else if (req.method === 'GET') {
+    conn.query("SELECT * FROM account", function (err, result, fields) {
+      if (err) {
+          console.error(err);
+          res.writeHead(500, {'Content-Type': 'text/plain'});
+          res.end('Internal Server Error');
+          return;
+      }
+      // Wysłanie odpowiedzi HTTP z wynikiem zapytania
+      res.writeHead(200, {'Content-Type': 'application/json'});
+      res.end(JSON.stringify(result));
   });
+  } else {
+    // Obsługa innych metod HTTP
+    res.writeHead(405, {'Content-Type': 'text/plain'});
+    res.end('Method Not Allowed');
+  }
 }).listen(80);
