@@ -141,12 +141,14 @@ app.post('/register', (req, res) => {
       res.status(500).send('Internal Server Error');
       return;
     }
+    console.log('New record added successfully');
     res.status(200).send('New record added successfully');
   });
 });
 
 // Obsługa innych typów żądań
 app.all('*', (req, res) => {
+  console.log('Method Not Allowed');
   res.status(405).send('Method Not Allowed');
 });
 
