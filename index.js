@@ -36,7 +36,7 @@ conn.connect(function(err) {
   console.log("Connected to MySQL database!");
 });
 
-app.get('/', () => {
+app.get('/', (req, res) => {
   console.log('test')
   res.status(200).json({mess:'test'});
 });
