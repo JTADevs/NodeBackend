@@ -76,6 +76,9 @@ conn.connect(function(err) {
 //   });
 // });
 
+app.get('/', () => {
+  console.log('test')
+});
 
 // Obsługa żądań GET dla /get
 app.get('/announcement/getAll', (req, res) => {
