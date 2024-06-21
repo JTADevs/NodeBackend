@@ -19,20 +19,20 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //Połączenie z bazą danych
-const conn = mysql.createConnection({
-  host: "localhost",
-  port: 3306,
-  user: "root",
-  password: "zaq1@WSX",
-  database: "bikebazar"
-});
 // const conn = mysql.createConnection({
 //   host: "localhost",
 //   port: 3306,
 //   user: "root",
-//   password: "",
+//   password: "zaq1@WSX",
 //   database: "bikebazar"
 // });
+const conn = mysql.createConnection({
+  host: "localhost",
+  port: 3306,
+  user: "root",
+  password: "",
+  database: "bikebazar"
+});
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
@@ -140,10 +140,6 @@ app.get('/announcement/getByUser', (req, res) => {
 
     res.status(200).json(announcementMap);
   });
-});
-
-app.listen(100, () => {
-  console.log('Server running on port 90');
 });
 
 // Obsługa żądań POST dla /addAnnouncement
