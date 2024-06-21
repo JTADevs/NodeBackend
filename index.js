@@ -126,7 +126,7 @@ app.post('/announcement/add', upload.array('images', 4), (req, res) => {
 });
 
 // Uruchomienie serwera na porcie 80
-app.listen(80, () => {
+const server = app.listen(80, () => {
   console.log(`Server is running on port ${server.address().port}`);
 });
 
