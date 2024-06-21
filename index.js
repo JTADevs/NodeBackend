@@ -43,14 +43,45 @@ app.get('/', (req, res) => {
 
 // Obsługa żądań GET dla /get
 app.get('/announcement/getAll', (req, res) => {
-  conn.query("SELECT * FROM announcements", function (err, result, fields) {
+  conn.query("SELECT * FROM announcements", (err, announcements) => {
     if (err) {
       console.error(err);
-      res.status(500).send('Internal Server Error');
-      return;
+      return res.status(500).send('Internal Server Error');
     }
-    console.log(result);
-    res.status(200).json(result);
+
+    if (announcements.length === 0) {
+      return res.status(200).json([]);
+    }
+
+    // Mapowanie obrazów do ogłoszeń z kodowaniem Base64
+    const announcementMap = announcements.map(announcement => {
+      let images = [];
+
+      if (announcement) {
+        if (announcement.image1) {
+          images.push(announcement.image1.toString('base64'));
+        }
+        if (announcement.image2) {
+          images.push(announcement.image2.toString('base64'));
+        }
+        if (announcement.image3) {
+          images.push(announcement.image3.toString('base64'));
+        }
+        if (announcement.image4) {
+          images.push(announcement.image4.toString('base64'));
+        }
+      }
+
+      return {
+        id: announcement.id,
+        title: announcement.title,
+        description: announcement.description,
+        price: announcement.price,
+        images: images
+      };
+    });
+
+    res.status(200).json(announcementMap);
   });
 });
 
@@ -76,7 +107,6 @@ app.get('/announcement/getByUser', (req, res) => {
     const announcementMap = announcements.map(announcement => {
       let images = [];
 
-      // Sprawdź, czy announcement istnieje i dodaj obrazy do tablicy, jeśli istnieją
       if (announcement) {
         if (announcement.image1) {
           images.push(announcement.image1.toString('base64'));
@@ -91,7 +121,6 @@ app.get('/announcement/getByUser', (req, res) => {
           images.push(announcement.image4.toString('base64'));
         }
       }
-      console.log(images);
 
       return {
         id: announcement.id,
