@@ -38,6 +38,7 @@ conn.connect(function(err) {
 
 app.get('/', () => {
   console.log('test')
+  res.status(200).json({mess:'test'});
 });
 
 // Obsługa żądań GET dla /get
