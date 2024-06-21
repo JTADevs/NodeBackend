@@ -19,20 +19,20 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //Połączenie z bazą danych
-// const conn = mysql.createConnection({
-//   host: "localhost",
-//   port: 3306,
-//   user: "root",
-//   password: "zaq1@WSX",
-//   database: "bikebazar"
-// });
 const conn = mysql.createConnection({
   host: "localhost",
   port: 3306,
   user: "root",
-  password: "",
+  password: "zaq1@WSX",
   database: "bikebazar"
 });
+// const conn = mysql.createConnection({
+//   host: "localhost",
+//   port: 3306,
+//   user: "root",
+//   password: "",
+//   database: "bikebazar"
+// });
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
