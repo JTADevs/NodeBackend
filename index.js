@@ -26,13 +26,6 @@ const conn = mysql.createConnection({
   password: "zaq1@WSX",
   database: "bikebazar"
 });
-// const conn = mysql.createConnection({
-//   host: "localhost",
-//   port: 3306,
-//   user: "root",
-//   password: "",
-//   database: "bikebazar"
-// });
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
@@ -42,39 +35,6 @@ conn.connect(function(err) {
   if (err) throw err;
   console.log("Connected to MySQL database!");
 });
-
-// app.post('/upload', upload.single('image'), (req, res) => {
-//   const image = req.file.buffer; // Bufor z obrazem
-//   const sql = 'INSERT INTO images (image) VALUES (?)';
-
-//   conn.query(sql, [image], (err, result) => {
-//     if (err) {
-//       return res.status(500).send(err);
-//     }
-//     res.send('Image uploaded!');
-//   });
-// });
-
-// app.get('/image/:id', (req, res) => {
-//   const id = req.params.id;
-//   const sql = 'SELECT image FROM images WHERE id = ?';
-
-//   conn.query(sql, [id], (err, result) => {
-//     if (err) {
-//       return res.status(500).send(err);
-//     }
-//     if (result.length === 0) {
-//       return res.status(404).send('Image not found');
-//     }
-
-//     const image = result[0].image;
-//     res.writeHead(200, {
-//       'Content-Type': 'image/jpeg', // Zakładając, że obraz jest w formacie JPEG
-//       'Content-Length': image.length
-//     });
-//     res.end(image);
-//   });
-// });
 
 app.get('/', () => {
   console.log('test')
@@ -165,37 +125,51 @@ app.post('/announcement/add', upload.array('images', 4), (req, res) => {
   }
 });
 
-// Obsługa żądań POST dla /register
-app.post('/register', (req, res) => {
-  const { email, password } = req.body;
-
-  const sqlQuery = 'INSERT INTO account (email, password) VALUES (?, ?)';
-  conn.query(sqlQuery, [email, password], function (err, result) {
-    if (err) {
-      console.error(err);
-      res.status(500).send('Internal Server Error');
-      return;
-    }
-    console.log('New record added successfully');
-    res.status(200).send('New record added successfully');
-  });
+// Uruchomienie serwera na porcie 80
+app.listen(80, () => {
+  console.log(`Server is running on port ${server.address().port}`);
 });
 
-// Obsługa żądań POST dla /register
-app.post('/login', (req, res) => {
-  const { email, password } = req.body;
+// const conn = mysql.createConnection({
+//   host: "localhost",
+//   port: 3306,
+//   user: "root",
+//   password: "",
+//   database: "bikebazar"
+// });
 
-  const sqlQuery = 'SELECT * FROM account WHERE email = ? AND password = ?';
-  conn.query(sqlQuery, [email, password], function (err, result) {
-    if (err) {
-      console.error(err);
-      res.status(500).send('Internal Server Error');
-      return;
-    }
-    console.log('New record added successfully');
-    res.status(200).send('New record added successfully');
-  });
-});
+// app.post('/upload', upload.single('image'), (req, res) => {
+//   const image = req.file.buffer; // Bufor z obrazem
+//   const sql = 'INSERT INTO images (image) VALUES (?)';
+
+//   conn.query(sql, [image], (err, result) => {
+//     if (err) {
+//       return res.status(500).send(err);
+//     }
+//     res.send('Image uploaded!');
+//   });
+// });
+
+// app.get('/image/:id', (req, res) => {
+//   const id = req.params.id;
+//   const sql = 'SELECT image FROM images WHERE id = ?';
+
+//   conn.query(sql, [id], (err, result) => {
+//     if (err) {
+//       return res.status(500).send(err);
+//     }
+//     if (result.length === 0) {
+//       return res.status(404).send('Image not found');
+//     }
+
+//     const image = result[0].image;
+//     res.writeHead(200, {
+//       'Content-Type': 'image/jpeg', // Zakładając, że obraz jest w formacie JPEG
+//       'Content-Length': image.length
+//     });
+//     res.end(image);
+//   });
+// });
 
 // Obsługa innych typów żądań
 // app.all('*', (req, res) => {
@@ -203,7 +177,34 @@ app.post('/login', (req, res) => {
 //   res.status(405).send('Method Not Allowed');
 // });
 
-// Uruchomienie serwera na porcie 80
-app.listen(90, () => {
-  console.log(`Server is running on port ${server.address().port}`);
-});
+// Obsługa żądań POST dla /register
+// app.post('/register', (req, res) => {
+//   const { email, password } = req.body;
+
+//   const sqlQuery = 'INSERT INTO account (email, password) VALUES (?, ?)';
+//   conn.query(sqlQuery, [email, password], function (err, result) {
+//     if (err) {
+//       console.error(err);
+//       res.status(500).send('Internal Server Error');
+//       return;
+//     }
+//     console.log('New record added successfully');
+//     res.status(200).send('New record added successfully');
+//   });
+// });
+
+// // Obsługa żądań POST dla /register
+// app.post('/login', (req, res) => {
+//   const { email, password } = req.body;
+
+//   const sqlQuery = 'SELECT * FROM account WHERE email = ? AND password = ?';
+//   conn.query(sqlQuery, [email, password], function (err, result) {
+//     if (err) {
+//       console.error(err);
+//       res.status(500).send('Internal Server Error');
+//       return;
+//     }
+//     console.log('New record added successfully');
+//     res.status(200).send('New record added successfully');
+//   });
+// });
